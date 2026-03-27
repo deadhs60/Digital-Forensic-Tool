@@ -16,6 +16,8 @@ from analyzer.browser_history import (
     detect_suspicious,
     timeline_data
 )
+from analyzer.vt_scanner import scan_urls_from_df
+from analyzer.blacklist import detect_blacklist
 
 import matplotlib.pyplot as plt
 
@@ -163,3 +165,32 @@ if history_file:
         plt.plot(timeline["date"], timeline["visits"])
         plt.xticks(rotation=45)
         st.pyplot(plt)
+
+        # ======================
+        # Blacklist Website
+        # ======================
+        st.subheader("Blacklisted Domains")
+        blacklisted = detect_blacklist(df)
+        if blacklisted:
+            for site in blacklisted:
+                st.error(f"Blacklisted: {site}")
+        else:
+            st.success("No blacklisted domains found")
+
+        # ======================
+        # VirusTotal Scan
+        # ======================
+        st.subheader("VirusTotal Scan")
+
+        if st.button("Scan URLs with VirusTotal"):
+            results = scan_urls_from_df(df)
+            for res in results:
+                if "error" in res:
+                    st.warning(f"{res['url']} → {res['error']}")
+                else:
+                    if res["malicious"] > 0:
+                        st.error(f"{res['url']} → Malicious ({res['malicious']})")
+                    elif res["suspicious"] > 0:
+                        st.warning(f"{res['url']} → Suspicious ({res['suspicious']})")
+                    else:
+                        st.success(f"{res['url']} → Safe")
