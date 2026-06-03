@@ -21,15 +21,18 @@ from analyzer.blacklist import detect_blacklist
 
 import matplotlib.pyplot as plt
 
-st.markdown("<h1 style='text-align: center;'>Digital Forensics Investigation Tool</h1>", unsafe_allow_html=True)
+st.set_page_config(
+    page_title="Digital Forensics Tool",
+    page_icon="🕵️‍♂️",
+    layout="wide"
+)
 
-st.set_page_config(page_title="Digital Forensics Tool", layout="wide")
+st.markdown("""<h1 style='text-align: center; color: #00ADB5;'>🕵️‍♂️ Digital Forensics Investigation Tool</h1><hr>""", unsafe_allow_html=True)
 
 # =========================
 # FILE FORENSICS SECTION
 # =========================
 st.header("File Forensics")
-
 uploaded_file = st.file_uploader("Upload Evidence File")
 
 if uploaded_file:

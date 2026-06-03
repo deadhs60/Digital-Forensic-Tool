@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 # =========================
 # ADD YOUR API KEY HERE
 # =========================
-API_KEY = "YOUR_API_TOKEN"
+API_KEY = "21d8157d6c399ae90e62982da87194251c86ec646a2ce73a4c2a35428cc2a4ca"
 
 # =========================
 # Extract Domain
